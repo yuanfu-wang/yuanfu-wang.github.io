@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal academic website">
+    <title>Academic Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@500;600&amp;display=swap');
+        
+        :root {
+            --tw-color-primary: #1e3a8a;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .tailwind-configured {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Playfair Display', sans-serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+        
+        .section-header {
+            position: relative;
+        }
+        
+        .section-header:after {
+            content: '';
+            position: absolute;
+            width: 64px;
+            height: 3px;
+            background-color: #1e3a8a;
+            bottom: -4px;
+            left: 0;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #1e3a8a;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .publication-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .publication-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        .profile-img {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="tailwind-configured antialiased text-slate-700">
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
+            <!-- Logo / Name -->
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-[#1e3a8a] text-white rounded-2xl flex items-center justify-center text-xl font-semibold shadow-inner">源</div>
+                <div>
+                    <h1 class="text-2xl font-semibold tracking-tight text-slate-900 heading-font">源甫</h1>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                <a href="#about" class="nav-link text-slate-600 hover:text-slate-900">About</a>
+                <a href="#research" class="nav-link text-slate-600 hover:text-slate-900">Research</a>
+                <a href="#publications" class="nav-link text-slate-600 hover:text-slate-900">Publications</a>
+                <a href="#teaching" class="nav-link text-slate-600 hover:text-slate-900">Teaching</a>
+                <a href="#cv" class="nav-link text-slate-600 hover:text-slate-900">CV</a>
+                <a href="#contact" class="nav-link text-slate-600 hover:text-slate-900">Contact</a>
+            </div>
+
+            <!-- Right side actions -->
+            <div class="flex items-center gap-x-4">
+                <!-- Light/Dark toggle (optional enhancement) -->
+                <button onclick="toggleDarkMode()" class="w-9 h-9 flex items-center justify-center text-slate-500 hover:text-slate-700 rounded-xl hover:bg-slate-100">
+                    <i class="fa-solid fa-moon text-lg"></i>
+                </button>
+                
+                <!-- Download CV button -->
+                <a href="#" onclick="downloadCV()" 
+                   class="inline-flex items-center gap-x-2 px-6 py-2.5 bg-[#1e3a8a] hover:bg-[#1e40a0] text-white text-sm font-semibold rounded-2xl">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Download CV</span>
+                </a>
+                
+                <!-- Mobile menu button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden w-9 h-9 flex items-center justify-center text-2xl text-slate-700">
+                    <i id="mobile-icon" class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t bg-white px-8 py-6">
+            <div class="flex flex-col gap-y-6 text-base font-medium">
+                <a href="#about" onclick="toggleMobileMenu()" class="py-1">About</a>
+                <a href="#research" onclick="toggleMobileMenu()" class="py-1">Research</a>
+                <a href="#publications" onclick="toggleMobileMenu()" class="py-1">Publications</a>
+                <a href="#teaching" onclick="toggleMobileMenu()" class="py-1">Teaching</a>
+                <a href="#cv" onclick="toggleMobileMenu()" class="py-1">CV</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="py-1">Contact</a>
+                <div class="pt-4 border-t">
+                    <a href="#" onclick="downloadCV()" class="flex items-center justify-center w-full py-4 bg-[#1e3a8a] text-white rounded-3xl font-semibold">
+                        <i class="fa-solid fa-download mr-2"></i> Download Full CV (PDF)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero-bg text-white">
+        <div class="max-w-screen-2xl mx-auto px-8 py-20 md:py-28 grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7">
+                <div class="inline-flex items-center gap-x-2 bg-white/20 backdrop-blur-md text-white text-sm font-medium px-5 py-2 rounded-3xl mb-6">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    Available for collaboration
+                </div>
+                
+                <h1 class="text-6xl md:text-7xl font-semibold leading-none heading-font tracking-tighter mb-4">
+                    源甫
+                </h1>
+                <p class="text-3xl md:text-4xl text-blue-100 mb-8">
+                    [Your Academic Title]<br>
+                    [Department / Institution]
+                </p>
+                
+                <div class="max-w-md text-lg text-blue-100/90 mb-10">
+                    Researcher in [Your Field]. Exploring [brief research theme]. 
+                    Currently based at [Institution / University], Chicago, IL.
+                </div>
+
+                <div class="flex items-center gap-x-4">
+                    <a href="#contact" 
+                       class="inline-flex items-center px-8 py-5 bg-white text-[#1e3a8a] font-semibold text-lg rounded-3xl hover:shadow-2xl">
+                        Get in touch
+                        <i class="fa-solid fa-arrow-right ml-3"></i>
+                    </a>
+                    
+                    <a href="#publications" 
+                       class="inline-flex items-center px-8 py-5 border-2 border-white/80 hover:border-white font-semibold text-lg rounded-3xl">
+                        View publications
+                    </a>
+                </div>
+
+                <!-- Social / ORCID / Google Scholar -->
+                <div class="flex items-center gap-x-8 mt-16 text-sm">
+                    <a href="#" class="flex items-center hover:text-blue-200">
+                        <i class="fa-brands fa-orcid text-3xl mr-3"></i>
+                        <span class="font-medium">ORCID</span>
+                    </a>
+                    <a href="#" class="flex items-center hover:text-blue-200">
+                        <i class="fa-solid fa-globe text-3xl mr-3"></i>
+                        <span class="font-medium">Google Scholar</span>
+                    </a>
+                    <a href="#" class="flex items-center hover:text-blue-200">
+                        <i class="fa-brands fa-linkedin text-3xl mr-3"></i>
+                        <span class="font-medium">LinkedIn</span>
+                    </a>
+                    <a href="#" class="flex items-center hover:text-blue-200">
+                        <i class="fa-brands fa-x-twitter text-3xl mr-3"></i>
+                        <span class="font-medium">X / Twitter</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Photo -->
+            <div class="md:col-span-5 flex justify-center md:justify-end">
+                <div class="relative">
+                    <div class="w-80 h-80 md:w-96 md:h-96 bg-white/10 backdrop-blur-3xl rounded-[4rem] flex items-center justify-center border border-white/30 shadow-2xl overflow-hidden">
+                        <!-- Replace the src with your professional photo URL -->
+                        <img src="https://picsum.photos/id/1015/800/800" 
+                             alt="Profile photo of 源甫"
+                             class="profile-img w-72 h-72 md:w-80 md:h-80 object-cover rounded-3xl border-8 border-white shadow-xl">
+                    </div>
+                    <!-- Decorative badge -->
+                    <div class="absolute -bottom-4 -right-4 bg-white text-[#1e3a8a] text-sm font-semibold px-6 py-3 rounded-3xl shadow-xl flex items-center">
+                        <i class="fa-solid fa-award mr-2"></i>
+                        Ph.D. [Year]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="max-w-screen-2xl mx-auto px-8 py-20">
+        <div class="grid md:grid-cols-12 gap-16">
+            <div class="md:col-span-5">
+                <h2 class="section-header text-4xl font-semibold text-slate-900 heading-font mb-8">About</h2>
+                <p class="text-lg leading-relaxed text-slate-600">
+                    I am 源甫, a [your current position, e.g., Assistant Professor / Postdoctoral Researcher] 
+                    in [your field] at [your institution]. My research focuses on [one-sentence research focus]. 
+                    Previously, I earned my Ph.D. from [university] under the supervision of [advisor name].
+                </p>
+                <p class="text-lg leading-relaxed text-slate-600 mt-6">
+                    My work bridges [discipline 1] and [discipline 2], with publications in leading journals including 
+                    <span class="font-semibold">Nature</span>, <span class="font-semibold">Science</span>, and 
+                    <span class="font-semibold">PNAS</span>. I am passionate about mentoring students and fostering 
+                    interdisciplinary collaboration.
+                </p>
+                
+                <div class="mt-12 flex flex-wrap gap-6">
+                    <div>
+                        <div class="uppercase text-xs tracking-widest font-medium text-slate-500">Current institution</div>
+                        <div class="text-xl font-medium">[University Name], Chicago, IL</div>
+                    </div>
+                    <div>
+                        <div class="uppercase text-xs tracking-widest font-medium text-slate-500">Email</div>
+                        <a href="mailto:your.email@university.edu" class="text-xl font-medium hover:text-[#1e3a8a]">your.email@university.edu</a>
+                    </div>
+                    <div>
+                        <div class="uppercase text-xs tracking-widest font-medium text-slate-500">Office</div>
+                        <div class="text-xl font-medium">[Building & Room], [Campus]</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Research Interests -->
+            <div class="md:col-span-7">
+                <h3 class="text-xl font-semibold mb-6 flex items-center gap-x-2">
+                    <span class="text-[#1e3a8a]">Research Interests</span>
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 hover:border-[#1e3a8a]/30">
+                        <i class="fa-solid fa-microscope text-4xl text-[#1e3a8a] mb-4"></i>
+                        <h4 class="font-semibold text-lg mb-1">[Interest 1]</h4>
+                        <p class="text-sm text-slate-500">Brief description of research theme 1.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 hover:border-[#1e3a8a]/30">
+                        <i class="fa-solid fa-chart-line text-4xl text-[#1e3a8a] mb-4"></i>
+                        <h4 class="font-semibold text-lg mb-1">[Interest 2]</h4>
+                        <p class="text-sm text-slate-500">Brief description of research theme 2.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 hover:border-[#1e3a8a]/30">
+                        <i class="fa-solid fa-flask text-4xl text-[#1e3a8a] mb-4"></i>
+                        <h4 class="font-semibold text-lg mb-1">[Interest 3]</h4>
+                        <p class="text-sm text-slate-500">Brief description of research theme 3.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESEARCH HIGHLIGHTS / SELECTED WORK -->
+    <section id="research" class="bg-slate-50 py-20">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex justify-between items-baseline mb-12">
+                <h2 class="section-header text-4xl font-semibold text-slate-900 heading-font">Featured Research</h2>
+                <a href="#" class="flex items-center text-[#1e3a8a] font-medium hover:gap-x-3">
+                    All projects <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Research Card 1 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border">
+                    <div class="h-56 bg-slate-200 flex items-center justify-center text-6xl text-slate-300">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div class="p-8">
+                        <span class="inline-block px-4 py-1 bg-emerald-100 text-emerald-700 text-xs font-medium rounded-3xl mb-3">2025 • Journal of [Field]</span>
+                        <h4 class="text-xl font-semibold leading-tight mb-3">Title of your most recent or impactful project</h4>
+                        <p class="text-slate-600 line-clamp-3">Short summary of the project and its significance.</p>
+                        <div class="mt-6 text-xs uppercase font-medium text-slate-500">Co-authors • [Names]</div>
+                    </div>
+                </div>
+                
+                <!-- Research Card 2 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border">
+                    <div class="h-56 bg-slate-200 flex items-center justify-center text-6xl text-slate-300">
+                        <i class="fa-solid fa-satellite"></i>
+                    </div>
+                    <div class="p-8">
+                        <span class="inline-block px-4 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-3xl mb-3">2024 • Conference [Name]</span>
+                        <h4 class="text-xl font-semibold leading-tight mb-3">Second highlighted project title</h4>
+                        <p class="text-slate-600 line-clamp-3">Short summary of the project and its significance.</p>
+                        <div class="mt-6 text-xs uppercase font-medium text-slate-500">Funding • NSF / [Agency]</div>
+                    </div>
+                </div>
+                
+                <!-- Research Card 3 -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-sm border">
+                    <div class="h-56 bg-slate-200 flex items-center justify-center text-6xl text-slate-300">
+                        <i class="fa-solid fa-dna"></i>
+                    </div>
+                    <div class="p-8">
+                        <span class="inline-block px-4 py-1 bg-amber-100 text-amber-700 text-xs font-medium rounded-3xl mb-3">2023 • Nature [Subjournal]</span>
+                        <h4 class="text-xl font-semibold leading-tight mb-3">Third highlighted project title</h4>
+                        <p class="text-slate-600 line-clamp-3">Short summary of the project and its significance.</p>
+                        <div class="mt-6 text-xs uppercase font-medium text-slate-500">Open access • Data repository</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PUBLICATIONS SECTION -->
+    <section id="publications" class="max-w-screen-2xl mx-auto px-8 py-20">
+        <h2 class="section-header text-4xl font-semibold text-slate-900 heading-font mb-12">Selected Publications</h2>
+        
+        <div class="space-y-8">
+            <!-- Publication Item -->
+            <div class="publication-card flex flex-col md:flex-row gap-8 bg-white border border-slate-100 rounded-3xl p-8">
+                <div class="md:w-28 text-sm font-medium text-slate-400 flex-shrink-0">2026</div>
+                <div class="flex-1">
+                    <p class="font-medium leading-tight text-slate-800">"Full Title of Your Publication Appears Here"</p>
+                    <p class="text-sm text-slate-500 mt-2">Journal Name • Volume(Issue), Pages • DOI: 10.xxxx/xxxxx</p>
+                    <div class="mt-4 flex flex-wrap gap-x-6 text-xs text-slate-500">
+                        <span><i class="fa-solid fa-users mr-1"></i> Co-authors: [Names]</span>
+                        <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-3xl">Open Access</span>
+                    </div>
+                </div>
+                <a href="#" class="self-start md:self-center text-[#1e3a8a] hover:text-blue-700 text-sm font-medium flex items-center">
+                    PDF <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                </a>
+            </div>
+            
+            <!-- More publication items – duplicate and edit as needed -->
+            <div class="publication-card flex flex-col md:flex-row gap-8 bg-white border border-slate-100 rounded-3xl p-8">
+                <div class="md:w-28 text-sm font-medium text-slate-400 flex-shrink-0">2025</div>
+                <div class="flex-1">
+                    <p class="font-medium leading-tight text-slate-800">"Second Publication Title – Replace with your actual work"</p>
+                    <p class="text-sm text-slate-500 mt-2">Journal Name • Volume(Issue), Pages • DOI: 10.xxxx/xxxxx</p>
+                </div>
+                <a href="#" class="self-start md:self-center text-[#1e3a8a] hover:text-blue-700 text-sm font-medium flex items-center">
+                    PDF <i class="fa-solid fa-arrow-up-right-from-square ml-2"></i>
+                </a>
+            </div>
+            
+            <!-- Add as many as you like -->
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="#" class="inline-flex items-center text-lg font-medium text-[#1e3a8a]">
+                View all publications on Google Scholar 
+                <i class="fa-solid fa-arrow-right ml-3"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- TEACHING SECTION -->
+    <section id="teaching" class="bg-slate-50 py-20">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <h2 class="section-header text-4xl font-semibold text-slate-900 heading-font mb-12">Teaching</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-3xl p-8">
+                    <div class="flex justify-between">
+                        <div>
+                            <span class="uppercase text-xs text-slate-400">Fall 2025</span>
+                            <h4 class="text-2xl font-medium mt-2">[Course Code] – Course Title</h4>
+                        </div>
+                        <span class="px-5 h-fit py-1 bg-slate-100 text-slate-600 text-sm rounded-3xl font-medium">Undergraduate</span>
+                    </div>
+                    <p class="mt-6 text-slate-600">Short description of the course and your role (Instructor / Lecturer).</p>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8">
+                    <div class="flex justify-between">
+                        <div>
+                            <span class="uppercase text-xs text-slate-400">Spring 2025</span>
+                            <h4 class="text-2xl font-medium mt-2">[Course Code] – Advanced Seminar Title</h4>
+                        </div>
+                        <span class="px-5 h-fit py-1 bg-slate-100 text-slate-600 text-sm rounded-3xl font-medium">Graduate</span>
+                    </div>
+                    <p class="mt-6 text-slate-600">Short description of the course and your role (Instructor / Lecturer).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CV / EXPERIENCE QUICK LINK -->
+    <section id="cv" class="max-w-screen-2xl mx-auto px-8 py-20 border-t border-b">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-10 bg-gradient-to-r from-slate-900 to-[#1e3a8a] text-white rounded-3xl px-12 py-16">
+            <div>
+                <h2 class="text-4xl font-semibold heading-font">Full Curriculum Vitae</h2>
+                <p class="text-blue-200 mt-3 max-w-md">Updated April 2026. Contains complete list of publications, grants, service, and academic timeline.</p>
+            </div>
+            <a onclick="downloadCV()" 
+               class="flex-shrink-0 inline-flex items-center justify-center px-10 py-6 text-xl font-semibold bg-white text-slate-900 rounded-3xl hover:shadow-2xl gap-x-4">
+                <i class="fa-solid fa-file-pdf text-4xl"></i>
+                Download CV (PDF)
+            </a>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="max-w-screen-2xl mx-auto px-8 py-20">
+        <div class="grid md:grid-cols-12 gap-16">
+            <div class="md:col-span-4">
+                <h2 class="section-header text-4xl font-semibold text-slate-900 heading-font">Let’s Connect</h2>
+                <p class="mt-6 text-slate-600">I welcome inquiries about research collaborations, student supervision, or speaking opportunities.</p>
+                
+                <div class="mt-12 space-y-6">
+                    <div class="flex items-center gap-x-4">
+                        <i class="fa-solid fa-envelope text-3xl text-slate-300"></i>
+                        <div>
+                            <div class="font-medium">Email</div>
+                            <a href="mailto:your.email@university.edu" class="text-[#1e3a8a] text-lg">your.email@university.edu</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-x-4">
+                        <i class="fa-solid fa-map-marker-alt text-3xl text-slate-300"></i>
+                        <div>
+                            <div class="font-medium">Office</div>
+                            <div class="text-slate-700">[Building Name], Room XXX<br>University of [Name], Chicago, IL</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="md:col-span-8 bg-white border rounded-3xl p-10">
+                <form id="contact-form" onsubmit="handleSubmit(event)" class="space-y-8">
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-500 mb-2">Your name</label>
+                            <input type="text" required 
+                                   class="w-full px-6 py-5 border border-slate-200 rounded-3xl focus:outline-none focus:border-[#1e3a8a]">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-500 mb-2">Your email</label>
+                            <input type="email" required 
+                                   class="w-full px-6 py-5 border border-slate-200 rounded-3xl focus:outline-none focus:border-[#1e3a8a]">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-500 mb-2">Subject</label>
+                        <input type="text" placeholder="Collaboration / Seminar / Student opportunity" 
+                               class="w-full px-6 py-5 border border-slate-200 rounded-3xl focus:outline-none focus:border-[#1e3a8a]">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-500 mb-2">Message</label>
+                        <textarea rows="6" required 
+                                  class="w-full px-6 py-5 border border-slate-200 rounded-3xl focus:outline-none focus:border-[#1e3a8a]"></textarea>
+                    </div>
+                    <button type="submit"
+                            class="w-full md:w-auto px-14 py-6 bg-[#1e3a8a] text-white text-lg font-semibold rounded-3xl hover:bg-[#1e40a0]">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-12">
+        <div class="max-w-screen-2xl mx-auto px-8 text-sm flex flex-col md:flex-row justify-between items-center gap-y-6">
+            <div>© 2026 源甫. All rights reserved.</div>
+            <div class="flex items-center gap-x-8">
+                <a href="#" class="hover:text-white">Privacy</a>
+                <a href="#" class="hover:text-white">Accessibility</a>
+                <a href="https://github.com" target="_blank" class="hover:text-white">Source on GitHub</a>
+            </div>
+            <div class="text-xs">Designed as a clean academic template • Built with Tailwind CSS</div>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script already loaded
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        configUser: userConfig,
+                        theme: {
+                            extend: {}
+                        }
+                    }
+                },
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('mobile-icon')
+            menu.classList.toggle('hidden')
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.replace('fa-bars', 'fa-xmark')
+            } else {
+                icon.classList.replace('fa-xmark', 'fa-bars')
+            }
+        }
+        
+        // Simple dark mode toggle
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark')
+                localStorage.theme = 'light'
+            } else {
+                document.documentElement.classList.add('dark')
+                localStorage.theme = 'dark'
+            }
+        }
+        
+        // Fake CV download
+        function downloadCV() {
+            const link = document.createElement('a')
+            link.href = '#' // Replace with real CV PDF link in production
+            link.download = 'CV_Yuanfu_2026.pdf'
+            link.click()
+            
+            // Toast notification
+            const toast = document.createElement('div')
+            toast.style.cssText = 'position:fixed; bottom:24px; right:24px; background:#1e3a8a; color:white; padding:16px 24px; border-radius:9999px; box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.2); display:flex; align-items:center; gap:12px;'
+            toast.innerHTML = `
+                <i class="fa-solid fa-check-circle"></i>
+                <span>CV downloaded (demo). Replace link with your actual PDF.</span>
+            `
+            document.body.appendChild(toast)
+            setTimeout(() => toast.remove(), 4000)
+        }
+        
+        // Contact form handler (demo)
+        function handleSubmit(e) {
+            e.preventDefault()
+            alert('✅ Thank you! Your message has been received. (This is a demo – connect your own backend in production.)')
+            e.target.reset()
+        }
+        
+        // Initialize everything
+        window.onload = function() {
+            console.log('%c✅ Academic website template loaded successfully!', 'color:#1e3a8a; font-weight:600')
+            // You can add more initialization here
+        }
+    </script>
+</body>
+</html>
